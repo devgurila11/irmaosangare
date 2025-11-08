@@ -1,148 +1,338 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import InputMask from "react-input-mask";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
-function Home() {
-  // Detecta se a tela é mobile (largura menor ou igual a 600px)
-  const [isMobile, setIsMobile] = useState(false);
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
 
-  // Armazena quantos dias faltam até o lançamento
-  const [daysLeft, setDaysLeft] = useState(0);
+export default function LandingPage() {
+  // Estado para controlar se o usuário tem empresa
+  const [temEmpresa, setTemEmpresa] = useState(null);
 
-  // Controla se o mouse está sobre a logo
-  const [isHovered, setIsHovered] = useState(false);
-
-  // Verifica se a tela é mobile e atualiza dinamicamente ao redimensionar
+  // Efeito para animar o carrossel automaticamente
   useEffect(() => {
-    const checkMobile = () => {
-      const mobile = window.innerWidth <= 600;
-      console.log("Verificando se é mobile:", mobile);
-      setIsMobile(mobile);
-    };
-
-    checkMobile(); // Executa na primeira renderização
-    window.addEventListener("resize", checkMobile); // Atualiza ao redimensionar
+    const interval = setInterval(() => {
+      const container = document.querySelector(".carousel");
+      if (container) {
+        container.scrollBy({ left: 310, behavior: "smooth" });
+        console.log("Carrossel avançando automaticamente");
+      }
+    }, 3000); // a cada 3 segundos
 
     return () => {
-      console.log("Removendo listener de resize");
-      window.removeEventListener("resize", checkMobile);
+      console.log("Limpando intervalo do carrossel");
+      clearInterval(interval);
     };
   }, []);
 
-  // Calcula os dias restantes até a data de lançamento
-  useEffect(() => {
-    const launchDate = new Date("2026-03-01"); // Data de lançamento
-    const today = new Date();
-    const diff = Math.ceil((launchDate - today) / (1000 * 60 * 60 * 24));
-    console.log("Dias até o lançamento:", diff);
-    setDaysLeft(diff);
-  }, []);
-
-  // Estilos do container principal
-  const containerStyle = {
-    margin: "30px auto",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    textAlign: "center",
-    fontFamily: "'Nunito', Arial, sans-serif",
-    backgroundColor: "#e6f9e6",
-    minHeight: "100vh",
-    padding: isMobile ? "20px" : "40px",
-    borderRadius: "10px",
-    border: "2px solid #b3e6b3",
-    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.5)",
-    position: "relative", // necessário para posicionar o balão
+  // Função chamada ao enviar o formulário
+  const handleSubmit = (e) => {
+    e.preventDefault(); // evita recarregar a página
+    console.log("Formulário enviado → redirecionando para e-mail");
+    window.location.href = "mailto:rafael@irmaosangare.com.br";
   };
 
-  // Estilo do título
-  const headingStyle = {
-    fontSize: isMobile ? "1.2rem" : "2rem",
-    marginBottom: "20px",
-  };
-
-  // Estilo da imagem da logo, com hover animado e cursor tipo ampulheta
-  const imageStyle = {
-    width: isMobile ? "140px" : "200px",
-    marginBottom: "20px",
-    transition: "transform 0.3s ease, filter 0.3s ease",
-    transform: isHovered ? "scale(1.05)" : "scale(1)",
-    filter: isHovered ? "brightness(1.1)" : "brightness(1)",
-    cursor: isHovered ? "wait" : "pointer", // cursor tipo ampulheta
-  };
-
-  // Estilo do balão de diálogo "em construção..."
-  const balloonStyle = {
-    position: "absolute",
-    top: "50%",
-    left: "calc(50% + 120px)",
-    transform: "translateY(-50%)",
-    backgroundColor: "#fff",
-    color: "#003366",
-    padding: "8px 12px",
-    borderRadius: "8px",
-    boxShadow: "0 2px 6px rgba(0,0,0,0.2)",
-    fontSize: "0.9rem",
-    whiteSpace: "nowrap",
-    transition: "opacity 0.3s ease",
-    opacity: isHovered ? 1 : 0, // aparece somente no hover
-    pointerEvents: "none", // não interfere com o mouse
-  };
-
-  // Estilo do botão de contato
-  const buttonStyle = {
-    backgroundColor: "#003366",
-    color: "#fff",
-    border: "none",
-    padding: "10px 20px",
-    fontSize: "1rem",
-    borderRadius: "5px",
-    cursor: "pointer",
-    marginTop: "20px",
-  };
-
-  // Ação ao clicar no botão de contato
-  const handleContactClick = () => {
-    console.log("Botão de contato clicado → abrindo e-mail");
-    window.location.href = "mailto:rafaelangare.contabil@gmail.com";
+  // Função chamada ao clicar em "Área Administrativa"
+  const handleAdminClick = () => {
+    console.log("Botão Área Administrativa clicado → exibindo alerta");
+    alert("Você não tem permissão para acessar esta área.");
   };
 
   return (
-    <div style={containerStyle}>
-      <h1 style={headingStyle}>
-        Bem-vindo à nossa futura Aplicação Contábil, em breve teremos prazer em
-        atendê-lo.
-      </h1>
+    <div className="landing-container">
+      {/* Cabeçalho com logo, título e botões */}
+      <header className="header">
+        <img src="/images/logo-irmaosAngare.png" alt="Logo" className="logo" />
+        <h1>Irmãos Angare Contabilidade</h1>
 
-      {/* Logo com hover e balão de diálogo */}
-      <div style={{ position: "relative" }}>
-        <img
-          src="/images/logo-irmaosAngare.png"
-          alt="Logo Irmãos Angare"
-          style={imageStyle}
-          onMouseEnter={() => {
-            console.log("Mouse entrou na logo → ativando hover e balão");
-            setIsHovered(true);
+        {/* Botões de navegação */}
+        <div className="header-buttons">
+          <Link href="/clientes">
+            <button
+              onClick={() =>
+                console.log("Botão Clientes clicado → navegando para /clientes")
+              }
+            >
+              Clientes
+            </button>
+          </Link>
+          <button onClick={handleAdminClick}>Área Administrativa</button>
+        </div>
+      </header>
+
+      {/* Seção sobre o escritório */}
+      <section className="section section-light">
+        <h2>
+          <i>
+            Escritório contábil com foco em soluções inteligentes para empresas
+            e empreendedores. <br /> Atuamos com transparência, agilidade e
+            proximidade com nossos clientes.
+          </i>
+        </h2>
+      </section>
+
+      {/* Seção de serviços com cards e descrições */}
+      <section className="section section-dark">
+        <h2>Serviços</h2>
+        <div className="servicos-grid">
+          <div className="servico-card">
+            <h3>📊 Abertura de Empresas</h3>
+            <p>
+              Orientamos você desde o primeiro passo, cuidando da legalização e
+              estruturação fiscal com agilidade.
+            </p>
+          </div>
+          <div className="servico-card">
+            <h3>📁 Escrituração Contábil</h3>
+            <p>
+              Organizamos e registramos todas as movimentações financeiras com
+              precisão e transparência.
+            </p>
+          </div>
+          <div className="servico-card">
+            <h3>💼 Folha de Pagamento</h3>
+            <p>
+              Gerenciamos salários, encargos e obrigações trabalhistas com
+              segurança e pontualidade.
+            </p>
+          </div>
+          <div className="servico-card">
+            <h3>📈 Planejamento Tributário</h3>
+            <p>
+              Reduzimos sua carga fiscal com estratégias legais e personalizadas
+              para o seu negócio.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Carrossel de imagens contábeis */}
+      <section className="section section-light">
+        <h2>Nosso Trabalho</h2>
+        <Swiper
+          modules={[Navigation, Pagination, Autoplay]}
+          navigation
+          pagination={{ clickable: true }}
+          autoplay={{ delay: 3000 }}
+          loop={true}
+          spaceBetween={20}
+          breakpoints={{
+            320: { slidesPerView: 1 },
+            640: { slidesPerView: 2 },
+            1024: { slidesPerView: 3 },
           }}
-          onMouseLeave={() => {
-            console.log("Mouse saiu da logo → desativando hover e balão");
-            setIsHovered(false);
-          }}
-        />
-        <div style={balloonStyle}>em construção...</div>
-      </div>
+        >
+          {/* Slide 1 */}
+          <SwiperSlide>
+            <div style={{ textAlign: "center" }}>
+              <img
+                src="/images/cloud-security-irmaosangare.png"
+                alt="Cloud Security"
+                style={{
+                  maxWidth: "512px",
+                  width: "100%",
+                  height: "auto",
+                  marginBottom: "10px",
+                }}
+              />
+              <p>
+                Seu financeiro em ordem, seus arquivos na nuvem, sua rede
+                conectada
+              </p>
+            </div>
+          </SwiperSlide>
 
-      {/* Contagem regressiva */}
-      <p
-        style={{ fontSize: isMobile ? "1rem" : "1.2rem", marginBottom: "10px" }}
-      >
-        Lançamento previsto em <strong>{daysLeft}</strong> dias!
-      </p>
+          {/* Slide 2 */}
+          <SwiperSlide>
+            <div style={{ textAlign: "center" }}>
+              <img
+                src="/images/collaboration-irmaosangare.png"
+                alt="Collaboration"
+                style={{
+                  maxWidth: "512px",
+                  width: "100%",
+                  height: "auto",
+                  marginBottom: "10px",
+                }}
+              />
+              <p>
+                Contabilidade inteligente, documentos seguros, acesso
+                compartilhado
+              </p>
+            </div>
+          </SwiperSlide>
 
-      {/* Botão de contato */}
-      <button style={buttonStyle} onClick={handleContactClick}>
-        Entrar em contato
-      </button>
+          {/* Slide 3 */}
+          <SwiperSlide>
+            <div style={{ textAlign: "center" }}>
+              <img
+                src="/images/control-irmaosangare.png"
+                alt="Control"
+                style={{
+                  maxWidth: "512px",
+                  width: "100%",
+                  height: "auto",
+                  marginBottom: "10px",
+                }}
+              />
+              <p>Controle contábil inteligente, movido por dados</p>
+            </div>
+          </SwiperSlide>
+
+          {/* Slide 4 */}
+          <SwiperSlide>
+            <div style={{ textAlign: "center" }}>
+              <img
+                src="/images/digital-workspace-irmaosangare.png"
+                alt="Digital Workspace"
+                style={{
+                  maxWidth: "512px",
+                  width: "100%",
+                  height: "auto",
+                  marginBottom: "10px",
+                }}
+              />
+              <p>
+                Do balanço à nuvem: tudo sob controle, com acesso para quem
+                precisa
+              </p>
+            </div>
+          </SwiperSlide>
+
+          {/* Slide 5 */}
+          <SwiperSlide>
+            <div style={{ textAlign: "center" }}>
+              <img
+                src="/images/independent-professionals-irmaosangare.png"
+                alt="Professionals Independent"
+                style={{
+                  maxWidth: "512px",
+                  width: "100%",
+                  height: "auto",
+                  marginBottom: "10px",
+                }}
+              />
+              <p>Gestão contábil moderna: segura, online e colaborativa</p>
+            </div>
+          </SwiperSlide>
+
+          {/* Slide 6 */}
+          <SwiperSlide>
+            <div style={{ textAlign: "center" }}>
+              <img
+                src="/images/smart-account-irmaosangare.png"
+                alt="Smart Account"
+                style={{
+                  maxWidth: "512px",
+                  width: "100%",
+                  height: "auto",
+                  marginBottom: "10px",
+                }}
+              />
+              <p>
+                Contabilidade com segurança digital e colaboração profissional
+              </p>
+            </div>
+          </SwiperSlide>
+
+          {/* Slide 7 */}
+          <SwiperSlide>
+            <div style={{ textAlign: "center" }}>
+              <img
+                src="/images/technology-irmaosangare.png"
+                alt="Technology"
+                style={{
+                  maxWidth: "512px",
+                  width: "100%",
+                  height: "auto",
+                  marginBottom: "10px",
+                }}
+              />
+              <p>Controle total com tecnologia contábil</p>
+            </div>
+          </SwiperSlide>
+        </Swiper>
+      </section>
+
+      {/* Formulário com máscara e separação visual */}
+      <section className="section section-dark">
+        <h2>Seja Cliente</h2>
+        <form onSubmit={handleSubmit} style={{ textAlign: "center" }}>
+          {/* Seleção de tipo de cliente */}
+          <label>
+            Você já possui empresa?
+            <select
+              onChange={(e) => {
+                console.log("Selecionado tipo de cliente:", e.target.value);
+                setTemEmpresa(e.target.value);
+              }}
+            >
+              <option value="">Selecione</option>
+              <option value="sim">Sim</option>
+              <option value="nao">Não</option>
+            </select>
+          </label>
+
+          {/* Campo condicional: CNPJ ou CPF */}
+          {temEmpresa === "sim" && (
+            <label>
+              CNPJ:
+              <InputMask
+                mask="99.999.999/9999-99"
+                required
+                onChange={(e) =>
+                  console.log("CNPJ preenchido:", e.target.value)
+                }
+              />
+            </label>
+          )}
+          {temEmpresa === "nao" && (
+            <label>
+              CPF:
+              <InputMask
+                mask="999.999.999-99"
+                required
+                onChange={(e) => console.log("CPF preenchido:", e.target.value)}
+              />
+            </label>
+          )}
+
+          {/* Campos comuns */}
+          <label>
+            E-mail:
+            <input
+              type="email"
+              required
+              onChange={(e) =>
+                console.log("E-mail preenchido:", e.target.value)
+              }
+            />
+          </label>
+
+          <label>
+            Celular:
+            <InputMask
+              mask="(99) 99999-9999"
+              required
+              onChange={(e) =>
+                console.log("Celular preenchido:", e.target.value)
+              }
+            />
+          </label>
+          <label>Digite sua mensagem</label>
+          <textarea rows={10} cols={60} placeholder="digite aqui..."></textarea>
+
+          <button type="submit">Enviar</button>
+        </form>
+      </section>
+
+      {/* Rodapé com informações de contato */}
+      <footer className="footer">
+        <p>© 2025 Irmãos Angare Contabilidade</p>
+      </footer>
     </div>
   );
 }
-
-export default Home;
