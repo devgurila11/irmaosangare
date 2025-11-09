@@ -44,6 +44,7 @@ export default function LandingPage() {
   return (
     <div className="landing-container">
       {/* Cabeçalho com logo, título e botões */}
+
       <header className="header">
         <img src="/images/logo-irmaosAngare.png" alt="Logo" className="logo" />
         <h1>Irmãos Angare Contabilidade</h1>
@@ -67,9 +68,10 @@ export default function LandingPage() {
       <section className="section section-light">
         <h2>
           <i>
-            Escritório contábil com foco em soluções inteligentes para empresas
-            e empreendedores. <br /> Atuamos com transparência, agilidade e
-            proximidade com nossos clientes.
+            Soluções contábeis inteligentes para empresas, empreendedores e
+            profissionais da contabilidade.<br></br>Atuamos com transparência,
+            agilidade e proximidade, oferecendo também nossa plataforma para que
+            outros contadores possam impulsionar seus próprios escritórios.
           </i>
         </h2>
       </section>
@@ -136,6 +138,8 @@ export default function LandingPage() {
                   width: "100%",
                   height: "auto",
                   marginBottom: "10px",
+                  borderRadius: "8px",
+                  boxShadow: "0 4px 8px rgba(0, 0, 0, 1)",
                 }}
               />
               <p>
@@ -156,6 +160,8 @@ export default function LandingPage() {
                   width: "100%",
                   height: "auto",
                   marginBottom: "10px",
+                  borderRadius: "8px",
+                  boxShadow: "0 4px 8px rgba(0, 0, 0, 1)",
                 }}
               />
               <p>
@@ -176,6 +182,8 @@ export default function LandingPage() {
                   width: "100%",
                   height: "auto",
                   marginBottom: "10px",
+                  borderRadius: "8px",
+                  boxShadow: "0 4px 8px rgba(0, 0, 0, 1)",
                 }}
               />
               <p>Controle contábil inteligente, movido por dados</p>
@@ -193,6 +201,8 @@ export default function LandingPage() {
                   width: "100%",
                   height: "auto",
                   marginBottom: "10px",
+                  borderRadius: "8px",
+                  boxShadow: "0 4px 8px rgba(0, 0, 0, 1)",
                 }}
               />
               <p>
@@ -213,6 +223,8 @@ export default function LandingPage() {
                   width: "100%",
                   height: "auto",
                   marginBottom: "10px",
+                  borderRadius: "8px",
+                  boxShadow: "0 4px 8px rgba(0, 0, 0, 1)",
                 }}
               />
               <p>Gestão contábil moderna: segura, online e colaborativa</p>
@@ -230,6 +242,8 @@ export default function LandingPage() {
                   width: "100%",
                   height: "auto",
                   marginBottom: "10px",
+                  borderRadius: "8px",
+                  boxShadow: "0 4px 8px rgba(0, 0, 0, 1)",
                 }}
               />
               <p>
@@ -249,6 +263,8 @@ export default function LandingPage() {
                   width: "100%",
                   height: "auto",
                   marginBottom: "10px",
+                  borderRadius: "8px",
+                  boxShadow: "0 4px 8px rgba(0, 0, 0, 1)",
                 }}
               />
               <p>Controle total com tecnologia contábil</p>
@@ -260,7 +276,18 @@ export default function LandingPage() {
       {/* Formulário com máscara e separação visual */}
       <section className="section section-dark">
         <h2>Seja Cliente</h2>
-        <form onSubmit={handleSubmit} style={{ textAlign: "center" }}>
+        <form
+          action="https://formsubmit.co/contato@irmaosangare.com.br"
+          method="POST"
+          style={{ textAlign: "center" }}
+          onSubmit={(e) => {
+            console.log("✅ Formulário enviado");
+            alert(
+              "Mensagem enviada com sucesso! Entraremos em contato em breve.",
+            );
+            // Não usamos e.preventDefault() para que o envio continue
+          }}
+        >
           {/* Seleção de tipo de cliente */}
           <label>
             Você já possui empresa?
@@ -282,6 +309,7 @@ export default function LandingPage() {
               CNPJ:
               <InputMask
                 mask="99.999.999/9999-99"
+                name="cnpj"
                 required
                 onChange={(e) =>
                   console.log("CNPJ preenchido:", e.target.value)
@@ -294,6 +322,7 @@ export default function LandingPage() {
               CPF:
               <InputMask
                 mask="999.999.999-99"
+                name="cpf"
                 required
                 onChange={(e) => console.log("CPF preenchido:", e.target.value)}
               />
@@ -305,6 +334,7 @@ export default function LandingPage() {
             E-mail:
             <input
               type="email"
+              name="email"
               required
               onChange={(e) =>
                 console.log("E-mail preenchido:", e.target.value)
@@ -316,6 +346,7 @@ export default function LandingPage() {
             Celular:
             <InputMask
               mask="(99) 99999-9999"
+              name="celular"
               required
               onChange={(e) =>
                 console.log("Celular preenchido:", e.target.value)
@@ -323,15 +354,103 @@ export default function LandingPage() {
             />
           </label>
           <label>Digite sua mensagem</label>
-          <textarea rows={10} cols={60} placeholder="digite aqui..."></textarea>
+          <textarea
+            rows={10}
+            cols={60}
+            name="mensagem"
+            placeholder="digite aqui..."
+          ></textarea>
 
           <button type="submit">Enviar</button>
+          {/* Campos ocultos para controle do FormSubmit */}
+          <input type="hidden" name="_captcha" value="false" />
+          <input
+            type="hidden"
+            name="_next"
+            value="https://seusite.com/obrigado"
+          />
         </form>
       </section>
+      {/* 💬 Botão flutuante do WhatsApp */}
+      <a
+        href="https://wa.me/5511945195474"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="whatsapp-button"
+        onClick={() => console.log("📲 Botão do WhatsApp clicado")}
+      >
+        {/* Ícone SVG do WhatsApp */}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+          fill="#fff"
+        >
+          <path d="M16 0C7.163 0 0 7.163 0 16c0 2.837.744 5.5 2.164 7.9L0 32l8.3-2.164C10.5 31.256 13.163 32 16 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm0 29.6c-2.6 0-5.1-.7-7.3-2.1l-.5-.3-4.9 1.3 1.3-4.8-.3-.5C3.1 21.1 2.4 18.6 2.4 16 2.4 8.9 8.9 2.4 16 2.4S29.6 8.9 29.6 16 23.1 29.6 16 29.6zm8.1-10.5c-.4-.2-2.3-1.1-2.6-1.2-.3-.1-.5-.2-.7.2-.2.4-.8 1.2-1 1.4-.2.2-.4.3-.8.1-.4-.2-1.6-.6-3-1.9-1.1-1-1.9-2.2-2.1-2.6-.2-.4 0-.6.2-.8.2-.2.4-.5.6-.7.2-.2.3-.4.5-.6.2-.2.1-.4 0-.6-.1-.2-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 2.9s1.2 3.3 1.4 3.5c.2.2 2.3 3.5 5.6 4.9.8.3 1.4.5 1.9.6.8.3 1.5.2 2.1.1.6-.1 2.3-.9 2.6-1.8.3-.9.3-1.7.2-1.8-.1-.1-.3-.2-.7-.4z" />
+        </svg>
+      </a>
 
-      {/* Rodapé com informações de contato */}
-      <footer className="footer">
-        <p>© 2025 Irmãos Angare Contabilidade</p>
+      {/* 📍 Section com o mapa do escritório */}
+      <section className="section section-map">
+        <h2>Onde Estamos</h2>
+
+        {/* Container do mapa */}
+        <div className="map-container">
+          {/* Mapa incorporado via iframe */}
+          <iframe
+            title="Localização do Escritório"
+            src="https://www.google.com/maps/embed?pb=!4v1762712389276!6m8!1m7!1sn7G71HSICnQSUhUg5Ba7yw!2m2!1d-23.53030061356555!2d-46.51628757111227!3f122.37607898828769!4f1.8697244957255776!5f0.7820865974627469"
+            width="100%"
+            height="400"
+            style={{ border: 0 }}
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
+        </div>
+
+        {/* Informações de endereço e botão */}
+        <div className="map-info">
+          {/* Endereço com ícone */}
+          <p>
+            <span role="img" aria-label="localização">
+              📍
+            </span>{" "}
+            Rua Costa Rego, 25 Complemento C – Vila Guilhermina - CEP: 03542-030
+            - São Paulo, SP
+          </p>
+
+          {/* Botão para abrir o Google Maps */}
+
+          <a
+            href="https://www.google.com/maps/place/R.+Costa+Rego,+25+-+Vila+Guilhermina,+S%C3%A3o+Paulo+-+SP,+03542-030/@-23.5303335,-46.5161901,1043m/data=!3m2!1e3!4b1!4m6!3m5!1s0x94ce60a0a7966e11:0xc37836eb261a6421!8m2!3d-23.5303335!4d-46.5161901!16s%2Fg%2F11bw44dlyn?entry=ttu&g_ep=EgoyMDI1MTEwNS4wIKXMDSoASAFQAw%3D%3D"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="map-button"
+            onClick={() => console.log("🗺️ Link para Google Maps clicado")}
+          >
+            Ver no Google Maps
+          </a>
+        </div>
+      </section>
+
+      <footer className="footer" id="contato">
+        {console.log("📞 Rodapé carregado")}
+
+        <p>&copy; 2025 Irmãos Angare</p>
+        <div className="social">
+          <a
+            href="https://www.facebook.com/profile.php?id=61583293121413"
+            target="_blank"
+          >
+            Facebook
+          </a>
+          <a href="https://www.instagram.com/irmaosangare/" target="_blank">
+            Instagram
+          </a>
+          <a href="mailto:contato@irmaosangare.com">E-mail</a>
+        </div>
       </footer>
     </div>
   );
