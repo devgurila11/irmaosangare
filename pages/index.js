@@ -71,7 +71,7 @@ export default function LandingPage() {
             Soluções contábeis inteligentes para empresas, empreendedores e
             profissionais da contabilidade.<br></br>Atuamos com transparência,
             agilidade e proximidade, oferecendo também nossa plataforma para que
-            outros contadores possam impulsionar seus próprios escritórios.
+            outros contadores possam impulsionar seus próprios escritórios
           </i>
         </h2>
       </section>
