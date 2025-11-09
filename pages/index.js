@@ -12,27 +12,10 @@ export default function LandingPage() {
   // Estado para controlar se o usuário tem empresa
   const [temEmpresa, setTemEmpresa] = useState(null);
 
-  // Efeito para animar o carrossel automaticamente
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const container = document.querySelector(".carousel");
-      if (container) {
-        container.scrollBy({ left: 310, behavior: "smooth" });
-        console.log("Carrossel avançando automaticamente");
-      }
-    }, 3000); // a cada 3 segundos
-
-    return () => {
-      console.log("Limpando intervalo do carrossel");
-      clearInterval(interval);
-    };
-  }, []);
-
-  // Função chamada ao enviar o formulário
   const handleSubmit = (e) => {
     e.preventDefault(); // evita recarregar a página
     console.log("Formulário enviado → redirecionando para e-mail");
-    window.location.href = "mailto:rafael@irmaosangare.com.br";
+    window.location.href = "mailto:contato@irmaosangare.com.br";
   };
 
   // Função chamada ao clicar em "Área Administrativa"
@@ -44,7 +27,7 @@ export default function LandingPage() {
   return (
     <div className="landing-container">
       {/* Cabeçalho com logo, título e botões */}
-
+      <title>Irmãos Angare Contabilidade</title>
       <header className="header">
         <img src="/images/logo-irmaosAngare.png" alt="Logo" className="logo" />
         <h1>Irmãos Angare Contabilidade</h1>
