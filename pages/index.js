@@ -26,6 +26,10 @@ export default function LandingPage() {
   return (
     <div className="landing-container">
       {/* Cabeçalho com logo, título e botões */}
+      <meta
+        http-equiv="Permissions-Policy"
+        content="accelerometer=(self)"
+      ></meta>
       <title>Irmãos Angare Contabilidade</title>
       <header className="header">
         <img src="/images/logo-irmaosAngare.png" alt="Logo" className="logo" />
