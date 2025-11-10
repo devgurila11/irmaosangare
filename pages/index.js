@@ -5,7 +5,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 
 export default function LandingPage() {
@@ -30,7 +29,7 @@ export default function LandingPage() {
       <title>Irmãos Angare Contabilidade</title>
       <header className="header">
         <img src="/images/logo-irmaosAngare.png" alt="Logo" className="logo" />
-        <h1>Irmãos Angare Contabilidade</h1>
+        <h1>Irmãos Angare Contabilidade & Sistemas</h1>
 
         {/* Botões de navegação */}
         <div className="header-buttons">
@@ -264,11 +263,19 @@ export default function LandingPage() {
           method="POST"
           style={{ textAlign: "center" }}
           onSubmit={(e) => {
-            console.log("✅ Formulário enviado");
-            alert(
-              "Mensagem enviada com sucesso! Entraremos em contato em breve.",
-            );
-            // Não usamos e.preventDefault() para que o envio continue
+            e.preventDefault(); // impede redirecionamento
+            const formData = new FormData(e.target);
+
+            fetch("https://formsubmit.co/contato@irmaosangare.com.br", {
+              method: "POST",
+              body: formData,
+            })
+              .then(() => {
+                alert("Mensagem enviada com sucesso!");
+              })
+              .catch(() => {
+                alert("Erro ao enviar. Tente novamente.");
+              });
           }}
         >
           {/* Seleção de tipo de cliente */}
@@ -347,11 +354,6 @@ export default function LandingPage() {
           <button type="submit">Enviar</button>
           {/* Campos ocultos para controle do FormSubmit */}
           <input type="hidden" name="_captcha" value="false" />
-          <input
-            type="hidden"
-            name="_next"
-            value="https://seusite.com/obrigado"
-          />
         </form>
       </section>
       {/* 💬 Botão flutuante do WhatsApp */}
@@ -421,7 +423,7 @@ export default function LandingPage() {
       <footer className="footer" id="contato">
         {console.log("📞 Rodapé carregado")}
 
-        <p>&copy; 2025 Irmãos Angare</p>
+        <p>&copy; 2025 Irmãos Angare Contabilidade & Sistemas</p>
         <div className="social">
           <a
             href="https://www.facebook.com/profile.php?id=61583293121413"
