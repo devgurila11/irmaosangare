@@ -55,7 +55,7 @@ export default function LandingPage() {
         <h2>
           <i>
             Soluções contábeis inteligentes para empresas, empreendedores e
-            profissionais da contabilidade.<br></br>Atuamos com transparência,
+            profissionais da contabilidade<br></br>Atuamos com transparência,
             agilidade e proximidade, oferecendo também nossa plataforma para que
             outros contadores possam impulsionar seus próprios escritórios
           </i>
@@ -70,28 +70,28 @@ export default function LandingPage() {
             <h3>📊 Abertura de Empresas</h3>
             <p>
               Orientamos você desde o primeiro passo, cuidando da legalização e
-              estruturação fiscal com agilidade.
+              estruturação fiscal com agilidade
             </p>
           </div>
           <div className="servico-card">
             <h3>📁 Escrituração Contábil</h3>
             <p>
               Organizamos e registramos todas as movimentações financeiras com
-              precisão e transparência.
+              precisão e transparência
             </p>
           </div>
           <div className="servico-card">
             <h3>💼 Folha de Pagamento</h3>
             <p>
               Gerenciamos salários, encargos e obrigações trabalhistas com
-              segurança e pontualidade.
+              segurança e pontualidade
             </p>
           </div>
           <div className="servico-card">
             <h3>📈 Planejamento Tributário</h3>
             <p>
               Reduzimos sua carga fiscal com estratégias legais e personalizadas
-              para o seu negócio.
+              para o seu negócio
             </p>
           </div>
         </div>
