@@ -1,6 +1,6 @@
 // pages/api/status.js - versao 1 do endpoint de status
 
-import database from "../../../../infra/database.js"; // Importa o módulo de banco de dados
+import database from "/infra/database.js"; // Importa o módulo de banco de dados
 
 async function status(request, response) {
   // Função que lida com a requisição de status

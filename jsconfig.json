@@ -1,0 +1,6 @@
+// arquivo para configurar o caminho base do projeto
+{
+  "compilerOptions": {
+    "baseUrl": "." // raize do projeto
+  }
+}
