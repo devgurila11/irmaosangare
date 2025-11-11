@@ -1,4 +1,4 @@
-// pages/api/status.js
+// pages/api/status.js - versao 1 do endpoint de status
 function status(request, response) {
   response
     .status(200)
