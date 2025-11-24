@@ -10,6 +10,7 @@ async function query(queryObject) {
     user: process.env.POSTGRES_USER, // Usuário do banco (deve ser definido na variável de ambiente)
     database: process.env.POSTGRES_DB, // Nome do banco (deve ser definido na variável de ambiente)
     password: process.env.POSTGRES_PASSWORD, // Senha do usuário (deve ser definida na variável de ambiente)
+    ssl: true,
   });
   console.log("Credencias do postgres:", {
     host: process.env.POSTGRES_HOST, // Host do banco (deve ser definido na variável de ambiente)
